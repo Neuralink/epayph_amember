@@ -847,8 +847,14 @@ class payment_epayph extends amember_advanced_payment {
         }
     }
     function get_cancel_link($payment_id){
-        return
-        "https://$this->epayph_domain/cgi-bin/webscr?cmd=_subscr-find&alias=".urlencode($this->config['business']);
+        global $db;
+        $p = $db->get_payment($payment_id);	
+		//$p = ($p['data']);
+		return 'https://' . $this->epayph_domain . '/checkout/api/r.php?' . http_build_query(array(
+            'invoice' => $p['data'][1]['invoice'],
+			'email' => $p['data'][1]['payer_email'],
+			'businesss' => $p['data'][1]['business']
+        ), '', '&');
     }
     function init(){
         parent::init();
