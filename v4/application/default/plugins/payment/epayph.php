@@ -231,17 +231,15 @@ CUT;
     
     function getUserCancelUrl(Invoice $invoice)
     {
-        return 'https://' . $this->domain . '?' . http_build_query(array(
-            'cmd' => '_subscr-find',
-            'alias' => $this->getConfig('merchant_id'),
+        return 'https://' . $this->domain . '/checkout/api/r.php?' . http_build_query(array(
+            'invoice' => $invoice->getRandomizedId(),
         ), '', '&');
     }
     
     public function getAdminCancelUrl(Invoice $invoice)
     {
-        return 'https://' . $this->domain . '?' . http_build_query(array(
-            'cmd' => '_subscr-find',
-            'alias' => $this->getConfig('merchant_id'),
+        return 'https://' . $this->domain . '/checkout/api/r.php' . http_build_query(array(
+            'invoice' => $invoice->getRandomizedId(),
         ), '', '&');
     }
     
